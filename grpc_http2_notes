@@ -1,24 +1,30 @@
 HTTP2
-Http2 is a new variant of hypertext transfer protocol. It enables bidirectional streaming. It allows multiple streams to be fully multiplexed over a single tcp connection. 
-It allows new features such as
-Hpack header compression. 
-Server push 
-Stream prioritization etc. 
-also mostly mandates TLS
+Http2 is a new variant of hypertext transfer protocol. It enables bidirectional streaming. 
+It allows multiple streams to be fully multiplexed over a single tcp connection. 
+It allows new features such as Hpack header compression, Server push, Stream prioritization 
+etc and also mostly mandates TLS
+
 
 Terminology 
 
 Streams 
-These are bidirectional flow of bytes within a connection. It can be used to carry one or more messages. Every stream is associated with an identifier and it has a priority associated with it. 
+These are bidirectional flow of bytes within a connection. It can be used to carry one or more messages. 
+Every stream is associated with an identifier and it has a priority associated with it. 
 
 Messages
 Each message corresponds to a logical request or a response. 
 
 Frames 
-This is the lowest unit of communication. Headers and data are carried by underlying http2 frames. Each frame contains a frame header identifying the stream it belongs to. Each frame can carry a specific type of data I.e HEADERS or Payload etc. also frames from various streams can be interleaved. The fact that various messages can be split to frames and interleaved provides a major performance optimization for http2 over http1
+This is the lowest unit of communication. Headers and data are carried by underlying http2 frames. 
+Each frame contains a frame header identifying the stream it belongs to. Each frame can carry a 
+specific type of data I.e HEADERS or Payload etc. also frames from various streams can be interleaved. 
+The fact that various messages can be split to frames and interleaved provides a major performance 
+optimization for http2 over http1
 
 GRPC
-GRPC protocols run on the top of Http2. It is used for making remote procedure calls. It abstracts the underlying serialization. It uses a length encoded message to pass in the request. It supports both unary and bidirectional streaming requests. 
+GRPC protocols run on the top of Http2. It is used for making remote procedure calls. 
+It abstracts the underlying serialization. It uses a length encoded message to pass in the request. 
+It supports both unary and bidirectional streaming requests. 
 The request is internally translated to a http2 post request specifying the method within the url path. 
 
 Some quirks are
