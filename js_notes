@@ -1,0 +1,173 @@
+Javascript notes
+https://felix-kling.de/jsbasics/#/3
+
+Js core
+http://dmitrysoshnikov.com/ecmascript/javascript-the-core-2nd-edition/
+
+
+Difference between var / let / const
+var 
+{
+	 foo = 10
+}
+foo = 10(foo is not attached to the scope)
+Hoisting
+Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top 
+of their scope before code execution. Inevitably, this means that no matter where functions and variables 
+are declared, they are moved to the top of their scope regardless of whether their scope is global or local
+
+
+{
+	let foo= 10
+}
+foo // not available outside the scope
+const is similar to let, where the variable once assigned cannot be reassigned. 
+
+
+——
+Data Types
+
+There are 6 data types 
+5 of them are primitive
+1 of them is object type
+
+Data type is determined from the value
+
+Numbers maximum of upto 2^53 - so be wary
+- Prefer using NULL in user code since it is a keyword and cannot be overwritten
+
+Objects are dictionaries
+- Key value
+- Keys are called properties in Javascript
+
+Javascript uses concept of prototype based inheritance and not class based inheritance 
+Example
+>point = {x : 10, y = 20}
+> point3D = {z = 30, __proto__ = point}
+Now point3D has property Z and if we run
+point3D.x —> then we run up the prototype chain and inspect the parent properties
+
+If we do 
+x = {}
+- By default it inherits from a default object prototype
+If we want to create object with no prototype then do
+
+x = Object.create(null)
+——
+Use square bracket notation for accessing properties, when property identifier is not valid or if the 
+Property is not known until runtime
+
+
+delete x.{property} will delete a property, however remember that it can go up the prototype chain 
+And if it finds the same property then it still continues to show that as the value
+
+
+…..
+Object.prototype is the top level prototype, if we associate any value here, then all objects will get that property
+For e.g. Object.prototype.z = 100, then all objects will have this property “z”.
+This is monkey patching. Advisable not to follow this
+
+In Javascript - you pass by pointer value, You can modify the properties in the calling method, however you cannot
+modify the object itself. It is called “Safe” pointer in C++.
+—
+
+Arrays are also objects in JS
+Arrays inherit from intermediate prototype called Array.prototype
+
+If I want to build array from object - x = [0:’a’, 1:’b’, __proto__:Array.prototype}
+…
+Functions
+
+Functions are also objects, they have a method called apply. You can use as 
+foo.apply(context, [list of args])
+Example
+
+add.apply(null, [1,2])
+
+….
+
+Foo == null (is shorthand for (foo === null || foo === undefined) - only legal case where this is valid
+
+…..
+Hoisting Example
+
+Var foo = 42
+Function bar() {
+	log(foo)
+	var foo = 21
+	log(foo)
+}
+
+In Hoisting 
+Var foo = 42
+Function bar() {
+	var foo <=== moved to top of the scope but not assigned any value and it shadows global var
+	log(foo)
+	var foo = 21
+	log(foo) }
+Output = undefined 21
+
+We don’t hoist the actual operation and only hoist the declaration because we don’t want unintended side effects
+
+
+Identifier Resolution
+
+Similar to prototype resolution if we don’t have var it will go up scope chain
+
+
+Functions Scopes
+
+Every function For e.g.
+Foo {
+Code : {}
+Environment:  {}
+}
+Environment is a name value table which contains parent scope
+
+What is closure ? 
+Code combined with captured environment is closure
+
+Immediately invoked function expression IFFY ( We do this to capture the environment in function scope)
+
+
+COMPILER
+BABEL is the compiler used for javascript by Facebook
+
+
+THIS VALUE is context Object
+
+“This” is context object, context where function is executed.
+
+If function is executed in normal way, then it is “window” in normal environment
+“Undefined” in strict sense
+
+If it is used as a method, for example foo.Print() , this object is before the dot
+Which is known as receiver.
+
+
+Var point = {x : 10, getX() { return this.x}}
+point.getX() <— returns 10, because “this” aka context is point
+
+If I have millions of objects, then this function gets allocated every time and is wasteful
+
+Instead
+Function _getX() {
+	return this.x
+}
+Point = {x : 10, getX : _getX}
+Then
+If I do 
+
+
+Javascript Getters
+const obj = {
+  log: ['a', 'b', 'c'],
+  get latest() {
+    if (this.log.length === 0) {
+      return undefined;
+    }
+    return this.log[this.log.length - 1];
+  }
+};
+
+If we do obj.latest ==> It will return ‘c’
