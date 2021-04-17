@@ -1,6 +1,6 @@
-##Kubectl cheatsheet
+## Kubectl cheatsheet
 
-###List Services
+### List Services
 kubectl -n magma get svc
 
 ###Get Logs
