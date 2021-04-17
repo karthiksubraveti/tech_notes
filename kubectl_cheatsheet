@@ -1,13 +1,13 @@
-Kubectl cheatsheet
+##Kubectl cheatsheet
 
-*List Services*
+###List Services
 kubectl -n magma get svc
 
-*Get Logs*
+###Get Logs
 kubectl logs orc8r-controller-7b6bcb454-6hlrd -n magma
 kubectl -n magma get pods
 
-*Set Port Forwarding
+###Set Port Forwarding
 kubectl port-forward --address 0.0.0.0 svc/orc8r-prometheus 9090:9090
 
 *Get Deployment Information
