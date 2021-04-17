@@ -3,21 +3,21 @@
 ### List Services
 kubectl -n magma get svc
 
-###Get Logs
+### Get Logs
 kubectl logs orc8r-controller-7b6bcb454-6hlrd -n magma
 kubectl -n magma get pods
 
-###Set Port Forwarding
+### Set Port Forwarding
 kubectl port-forward --address 0.0.0.0 svc/orc8r-prometheus 9090:9090
 
-*Get Deployment Information
+### Get Deployment Information
 Kubectl deployment
 > kubectl get deployment
 
-*Edit Deployment
+### Edit Deployment
 kubectl edit deploy/orc8r-controller
 
-*Restart Pod
+### Restart Pod
 ksubraveti@ksubraveti-mbp helm % kubectl -n orc8r rollout restart deployment/orc8r-analytics
 error: the server doesn't have a resource type "orc8r-analytics"
 
@@ -69,18 +69,18 @@ orc8r-wifi                      2/2     2            2           11d
 ksubraveti@ksubraveti-mbp helm % kubectl -n orc8r rollout restart deployment/orc8r-analytics
 deployment.apps/orc8r-analytics restarted
 
-*Label vs Annotation
+### Label vs Annotation
 Labels can be used to select objects and to find collections of objects that satisfy certain conditions. 
 In contrast, annotations are not used to identify and select objects. The metadata in an annotation can 
 be small or large, structured or unstructured, and can include characters not permitted by labels
 
-*Get Kubectl Annotation
+### Get Kubectl Annotation
 kubectl get pods -n orc8r -o jsonpath='{.items[*].metadata.annotations}'
 
-*Dump the entire cluster information
+### Dump the entire cluster information
 kubectl cluster-info dump
 
-*Kubernetes image pull policy 
+### Kubernetes image pull policy 
 imagePullPolicy - IfNotPresent, Always etc. Modify to Always to always pull from registry
 
 
