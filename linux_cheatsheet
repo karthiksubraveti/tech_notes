@@ -1,0 +1,17 @@
+Adding host aliases
+
+https://unix.stackexchange.com/questions/10438/can-i-create-a-user-specific-hosts-file-to-complement-etc-hosts
+
+```
+The functionality you are looking for is implemented in glibc. You can define a custom hosts file by setting the HOSTALIASES environment variable. The names in this file will be picked up by gethostbyname (see documentation).
+
+Example (tested on Ubuntu 13.10):
+
+$ echo 'g www.google.com' >> ~/.hosts
+$ export HOSTALIASES=~/.hosts
+$ wget g -O /dev/null
+Some limitations:
+
+HOSTALIASES only works for applications using getaddrinfo(3) or gethostbyname(3)
+For setuid/setgid/setcap applications, libc sanitizes the environment, which means that the HOSTALIASES setting is lost. ping is setuid root or is given the net_raw capability upon execution (because it needs to listen for ICMP packets), so HOSTALIASES will not work with ping unless you're already root before you call ping.
+```
