@@ -23,7 +23,7 @@ kubectl edit deploy/orc8r-controller
 kubectl -n {NAMESPACE} rollout restart deploy
  
 *Specific Pod*
-
+```
 ksubraveti@ksubraveti-mbp helm % kubectl -n orc8r rollout restart deployment/orc8r-analytics
 error: the server doesn't have a resource type "orc8r-analytics"
 
@@ -72,6 +72,8 @@ orc8r-thanos-store-0            1/1     1            1           11d
 orc8r-user-grafana              1/1     1            1           12d
 orc8r-vpn                       2/2     2            2           11d
 orc8r-wifi                      2/2     2            2           11d
+```
+
 ksubraveti@ksubraveti-mbp helm % kubectl -n orc8r rollout restart deployment/orc8r-analytics
 deployment.apps/orc8r-analytics restarted
 
