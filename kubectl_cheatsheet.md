@@ -1,28 +1,29 @@
 ## Kubectl cheatsheet
 
 ### List Services
-kubectl -n magma get svc
+`kubectl -n magma get svc`
 
 ### Get Logs
+```
 kubectl logs orc8r-controller-7b6bcb454-6hlrd -n magma
 kubectl -n magma get pods
 kubectl logs <pod_name> --previous # previous logs 
-
+```
 
 ### Set Port Forwarding
-kubectl port-forward --address 0.0.0.0 svc/orc8r-prometheus 9090:9090
+`kubectl port-forward --address 0.0.0.0 svc/orc8r-prometheus 9090:9090`
 
 ### Get Deployment Information
-Kubectl deployment
-> kubectl get deployment
+`kubectl get deployment`
+
 
 ### Edit Deployment
-kubectl edit deploy/orc8r-controller
+`kubectl edit deploy/orc8r-controller`
 
 ### Restart Pod
 *All Pods*
 
-kubectl -n {NAMESPACE} rollout restart deploy
+`kubectl -n {NAMESPACE} rollout restart deploy`
  
 *Specific Pod*
 ```
@@ -85,23 +86,25 @@ In contrast, annotations are not used to identify and select objects. The me
 be small or large, structured or unstructured, and can include characters not permitted by labels
 
 ### Get Kubectl Annotation
-kubectl get pods -n orc8r -o jsonpath='{.items[*].metadata.annotations}'
+`kubectl get pods -n orc8r -o jsonpath='{.items[*].metadata.annotations}'`
 
 ### Dump the entire cluster information
-kubectl cluster-info dump
+`kubectl cluster-info dump`
 
 ### Kubernetes image pull policy 
 imagePullPolicy - IfNotPresent, Always etc. Modify to Always to always pull from registry
 
 Describe and delete secret
+```
 root@39a8f782c90c:~/scripts/testlib# kubectl -n orc8r delete secret sh.helm.release.v1.orc8r.v1
 secret "sh.helm.release.v1.orc8r.v1" deleted
 root@39a8f782c90c:~/scripts/testlib# kubectl -n orc8r delete secret sh.helm.release.v1.lte-orc8r.v1
 secret "sh.helm.release.v1.lte-orc8r.v1" deleted
 root@39a8f782c90c:~/scripts/testlib# terr^C
 root@39a8f782c90c:~/scripts/testlib# kubectl -n orc8r describe secret
-
+```
 ### Dump PVC information
+```
 root@fbb460a95152:~/project# kubectl -n orc8r get pvc -o wide
 NAME                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE   VOLUMEMODE
 grafanadashboards    Bound    pvc-6e38f986-a290-4f2a-a697-ddc4b89daf7a   2Gi        RWX            efs            38h   Filesystem
@@ -111,12 +114,12 @@ grafanaproviders     Bound    pvc-111f39c2-eacc-4551-b88e-35fe5263a1d1   100M   
 openvpn              Bound    pvc-4c00c48f-99aa-4f31-a62f-f3554f69dc03   2M         RWO            efs            38h   Filesystem
 promcfg              Bound    pvc-e6c32c69-795d-eklhhjudivdtevrdceijtelttllnndhf4378-8fb2-62a4bc4a4ab1   1Gi        RWX            efs            38h   Filesystem
 promdata             Bound    pvc-769b7ecc-b67c-4085-b785-68349e064bd4   64Gi       RWO            efs            38h   Filesystem
-
+```
 ### Describe disk usage
-kubectl describe pv
+`kubectl describe pv`
 
 ### DELETE PERSISTENT VOLUME CLAIM
-kubectl -n orc8r delete  pvc/promdata
+`kubectl -n orc8r delete  pvc/promdata`
 
 
 ### Adding kubernetes metrics
