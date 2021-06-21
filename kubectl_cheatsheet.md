@@ -134,3 +134,6 @@ helm upgrade -n orc8r orc8r-kibana3 --version 7.7.1 elastic/kibana --set elastic
 
 ### Helm Node Selector
 Use node selector to pin a pod to a specific node.
+
+### Cron jobs in Kubernetes
+`kubectl -n monitoring get cronjob`
