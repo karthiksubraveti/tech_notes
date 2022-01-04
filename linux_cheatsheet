@@ -15,3 +15,8 @@ Some limitations:
 HOSTALIASES only works for applications using getaddrinfo(3) or gethostbyname(3)
 For setuid/setgid/setcap applications, libc sanitizes the environment, which means that the HOSTALIASES setting is lost. ping is setuid root or is given the net_raw capability upon execution (because it needs to listen for ICMP packets), so HOSTALIASES will not work with ping unless you're already root before you call ping.
 ```
+
+
+Useful commands
+
+pidstat (https://linux.die.net/man/1/pidstat)
